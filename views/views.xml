@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="odoo_pokemon.list">
+      <field name="name">odoo_pokemon list</field>
+      <field name="model">odoo_pokemon.odoo_pokemon</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="odoo_pokemon.action_window">
+      <field name="name">odoo_pokemon window</field>
+      <field name="res_model">odoo_pokemon.odoo_pokemon</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="odoo_pokemon.action_server">
+      <field name="name">odoo_pokemon server</field>
+      <field name="model_id" ref="model_odoo_pokemon_odoo_pokemon"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="odoo_pokemon" id="odoo_pokemon.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="odoo_pokemon.menu_1" parent="odoo_pokemon.menu_root"/>
+    <menuitem name="Menu 2" id="odoo_pokemon.menu_2" parent="odoo_pokemon.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="odoo_pokemon.menu_1_list" parent="odoo_pokemon.menu_1"
+              action="odoo_pokemon.action_window"/>
+    <menuitem name="Server to list" id="odoo_pokemon" parent="odoo_pokemon.menu_2"
+              action="odoo_pokemon.action_server"/>
+-->
+  </data>
+</odoo>
