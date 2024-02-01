@@ -10,7 +10,9 @@ class Pokemon(models.Model):
 
     def get_pokemon(self):
         if self.is_company:
-            pokemon_id = random.randint(1, 1025)  # total pokemon dari 1-1025 karena id yang 1025++ keacak
+            response = requests.get('https://pokeapi.co/api/v2/pokemon/')
+            total_pokemon = response.json().get('count')
+            pokemon_id = random.randint(1, total_pokemon)
             response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{pokemon_id}')
             data = response.json()
             self.pokemon_id = data.get('id')
