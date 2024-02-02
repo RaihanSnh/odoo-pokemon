@@ -34,3 +34,9 @@ class Pokemon(models.Model):
                 self.assigned_pokemon[self.pokemon_id] = self.id
         except Exception as e:
             pass 
+
+    def unlink(self):
+        if self.pokemon_id in self.assigned_pokemon:
+            del self.assigned_pokemon[self.pokemon_id]
+        return super(Pokemon, self).unlink()
+

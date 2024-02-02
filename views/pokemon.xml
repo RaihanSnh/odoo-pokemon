@@ -5,11 +5,10 @@
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
-        <xpath expr="//field[@name='name']" position="after">
-          <button name="get_pokemon" string="Get Pokemon" type="object" class="oe_highlight" widget="boolean_button" options="{'terminology': 'is_company'}"/>
-          <group>
-            <field name="pokemon_name" readonly="1" widget="boolean_button" options="{'terminology': 'is_company'}"/>
-          </group>
+        <xpath expr="//form/*" position="before">
+          <header>
+            <button string="Get Pokemon" type="object" class="oe_highlight" name="get_pokemon" invisible="not is_company"/>
+          </header>    
         </xpath>
       </field>
     </record>
@@ -20,7 +19,7 @@
       <field name="inherit_id" ref="base.res_partner_kanban_view"/>
       <field name="arch" type="xml">
           <xpath expr="//div[@class='oe_kanban_details d-flex flex-column justify-content-between']" position="inside">
-              <div class="mt-auto">
+              <div class="mt-auto" invisible="not is_company">
                   <div>Pokémon: <field name="pokemon_name"/></div>
               </div>
           </xpath>
