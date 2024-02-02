@@ -8,6 +8,7 @@ class Pokemon(models.Model):
 
     pokemon_id = fields.Char('Pokémon ID')
     pokemon_name = fields.Char('Pokémon Name')
+    pokemon_moves = fields.Text('Pokémon Moves')  # new field to store the moves
 
     assigned_pokemon = {}
 
@@ -31,12 +32,12 @@ class Pokemon(models.Model):
                 data = response.json()
                 self.pokemon_id = data.get('id')
                 self.pokemon_name = data.get('name')
+                self.pokemon_moves = ', '.join([move['move']['name'] for move in data.get('moves', [])])  # get the moves
                 self.assigned_pokemon[self.pokemon_id] = self.id
         except Exception as e:
             pass 
-
+    
     def unlink(self):
         if self.pokemon_id in self.assigned_pokemon:
             del self.assigned_pokemon[self.pokemon_id]
         return super(Pokemon, self).unlink()
-

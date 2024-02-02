@@ -8,7 +8,11 @@
         <xpath expr="//form/*" position="before">
           <header>
             <button string="Get Pokemon" type="object" class="oe_highlight" name="get_pokemon" invisible="not is_company"/>
-          </header>    
+          </header>
+          <group>
+            <field name="pokemon_name" readonly="1" widget="boolean_button" options="{'terminology': 'is_company'}"/>
+            <field name="pokemon_moves" readonly="1"/>
+          </group>    
         </xpath>
       </field>
     </record>
