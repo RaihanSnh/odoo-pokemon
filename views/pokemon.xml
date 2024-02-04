@@ -7,12 +7,17 @@
       <field name="arch" type="xml">
         <xpath expr="//form/*" position="before">
           <header>
-            <button string="Get Pokemon" type="object" class="oe_highlight" name="get_pokemon" invisible="not is_company"/>
+            <button string="Get Pokémon" type="object" class="oe_highlight" name="get_pokemon" invisible="not is_company"/>
           </header>
-          <group>
-            <field name="pokemon_name" readonly="1" widget="boolean_button" options="{'terminology': 'is_company'}"/>
-            <field name="pokemon_moves" readonly="1"/>
-          </group>    
+        </xpath>
+
+        <xpath expr="//form/sheet/notebook" posisition="inside">
+            <page string="Pokémon">
+                <group string="Pokémon Information" >
+                    <field name="pokemon_name" invisible="not is_company" widget="boolean_button" options="{'terminology': 'is_company'}"/>
+                    <field name="pokemon_moves" invisible="not is_company"/>
+                </group>
+            </page>
         </xpath>
       </field>
     </record>
