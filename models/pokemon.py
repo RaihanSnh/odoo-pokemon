@@ -32,11 +32,11 @@ class Pokemon(models.Model):
                 data = response.json()
                 self.pokemon_id = data.get('id')
                 self.pokemon_name = data.get('name')
-                self.pokemon_moves = ', '.join([move['move']['name'] for move in data.get('moves', [])])
+                self.pokemon_moves = ', '.join([move['move']['name'] for move in data.get('moves', [])[:3]])
                 self.assigned_pokemon[self.pokemon_id] = self.id
         except Exception as e:
             pass 
-    
+ 
     def unlink(self):
         if self.pokemon_id in self.assigned_pokemon:
             del self.assigned_pokemon[self.pokemon_id]

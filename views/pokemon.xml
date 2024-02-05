@@ -14,8 +14,8 @@
         <xpath expr="//form/sheet/notebook" posisition="inside">
             <page string="Pokémon">
                 <group string="Pokémon Information" >
-                    <field name="pokemon_name" invisible="not is_company" widget="boolean_button" options="{'terminology': 'is_company'}"/>
-                    <field name="pokemon_moves" invisible="not is_company"/>
+                    <field name="pokemon_name" invisible="not is_company" readonly="1" widget="boolean_button" options="{'terminology': 'is_company'}"/>
+                    <field name="pokemon_moves" invisible="not is_company" readonly="1"/>
                 </group>
             </page>
         </xpath>
