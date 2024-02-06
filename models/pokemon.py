@@ -10,6 +10,14 @@ class Pokemon(models.Model):
     pokemon_name = fields.Char('Pokémon Name')
     pokemon_moves = fields.Text('Pokémon Moves')
 
+    has_pokemon = fields.Boolean('Has Pokémon', compute='_compute_has_pokemon')
+
+    @api.depends('pokemon_id')
+    def _compute_has_pokemon(self):
+        for record in self:
+            record.has_pokemon = bool(record.pokemon_id)
+
+    
     assigned_pokemon = {}
 
     def get_pokemon(self):
@@ -36,8 +44,31 @@ class Pokemon(models.Model):
                 self.assigned_pokemon[self.pokemon_id] = self.id
         except Exception as e:
             pass 
- 
+
     def unlink(self):
         if self.pokemon_id in self.assigned_pokemon:
             del self.assigned_pokemon[self.pokemon_id]
         return super(Pokemon, self).unlink()
+
+    @api.model
+    def get_pokemon_data(self, limit=10, offset=0):
+        try:
+            response = requests.get(f'https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}')
+            if response.status_code != 200:
+                return
+            data = response.json().get('results', [])
+            for pokemon_data in data:
+                pokemon_id = pokemon_data['url'].split('/')[-2]
+                time.sleep(1)
+                response = requests.get(pokemon_data['url'])
+                if response.status_code != 200:
+                    continue
+                pokemon_detail = response.json()
+                self.create({
+                    'pokemon_id': pokemon_detail.get('id'),
+                    'pokemon_name': pokemon_detail.get('name'),
+                    'pokemon_moves': ', '.join([move['move']['name'] for move in pokemon_detail.get('moves', [])[:3]]),
+                    'name': self.name
+                })
+        except Exception as e:
+            pass

@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_res_partner_pokemon_tree" model="ir.ui.view">
+        <field name="name">res.partner.pokemon.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Pokémon Data">
+                <field name="name" invisible="context.get('has_pokemon', False)"/>
+                <field name="pokemon_id"/>
+                <field name="pokemon_name"/>
+                <field name="pokemon_moves"/>
+                <field name="has_pokemon" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_res_partner_pokemon" model="ir.actions.act_window">
+        <field name="name">Pokémon</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('has_pokemon','=',True)]</field>
+        <field name="view_id" ref="view_res_partner_pokemon_tree"/>
+    </record>
+
+
+    <menuitem id="menu_res_partner_pokemon" name="Pokémon" parent="contacts.res_partner_menu_config" action="action_res_partner_pokemon"/>
+</odoo>
